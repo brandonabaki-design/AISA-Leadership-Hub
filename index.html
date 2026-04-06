@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This next line is CRITICAL for mobile layouts. Do not remove it! -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>AISA Leadership Hub</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS Variables for AISA Colors (Navy Blue & Maize Yellow) */
+        :root {
+            --primary-navy: #002147; /* Deep Navy */
+            --secondary-navy: #003366; /* Slightly lighter Navy for gradient */
+            --accent-maize: #FFC72C; /* Maize Yellow */
+            --accent-maize-hover: #FFE082; /* Lighter Maize for hover text */
+            --text-light: #F8FAFC;
+            --text-muted: #CBD5E1;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 199, 44, 0.2);
+            --glass-hover: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #050b14, var(--primary-navy), var(--secondary-navy), #0a192f);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6.5rem 1rem 2rem 1rem;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Animated Background */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Banner for Date and Time */
+        .top-bar {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 33, 71, 0.7); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--accent-maize);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            white-space: nowrap;
+        }
+
+        /* Main Dashboard Container */
+        .dashboard-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+            width: 100%;
+        }
+
+        /* Corner Logos */
+        .logo-left, .logo-right {
+            position: absolute;
+            top: 1.5rem;
+            height: 75px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+            z-index: 50;
+        }
+
+        .logo-left {
+            left: 2.5rem;
+        }
+
+        .logo-right {
+            right: 2.5rem;
+        }
+
+        .school-name {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-maize);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .hub-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #FFF, var(--accent-maize-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid Layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding-bottom: 3rem;
+            width: 100%;
+        }
+
+        /* Glassmorphism Card Styling */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            min-height: 280px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none;
+            color: inherit;
+            animation: fadeIn 0.8s ease-out backwards;
+            width: 100%;
+        }
+
+        /* Staggered animation for cards */
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.25s; }
+        .card:nth-child(5) { animation-delay: 0.3s; }
+        .card:nth-child(6) { animation-delay: 0.35s; }
+        .card:nth-child(7) { animation-delay: 0.4s; }
+        .card:nth-child(8) { animation-delay: 0.45s; }
+        .card:nth-child(9) { animation-delay: 0.5s; }
+        .card:nth-child(10) { animation-delay: 0.55s; }
+        .card:nth-child(11) { animation-delay: 0.6s; }
+        .card:nth-child(12) { animation-delay: 0.65s; }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: var(--glass-hover);
+            border-color: var(--accent-maize);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 199, 44, 0.2);
+        }
+
+        /* Share Button */
+        .share-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            width: 48px;
+            height: 48px; 
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .share-btn:hover, .share-btn:active {
+            background: var(--accent-maize);
+            color: var(--primary-navy);
+            border-color: var(--accent-maize);
+            transform: scale(1.1);
+        }
+
+        /* Card Content */
+        .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 199, 44, 0.2), rgba(255, 199, 44, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-maize);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 199, 44, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .icon-wrapper {
+            background: var(--accent-maize);
+            color: var(--primary-navy);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Placeholder/Coming Soon Styling */
+        .card.coming-soon {
+            opacity: 0.6;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .card.coming-soon:hover {
+            opacity: 1;
+            border-style: solid;
+        }
+
+        /* Custom Toast Notification */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent-maize);
+            color: var(--primary-navy);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1000;
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE ADJUSTMENTS */
+        @media screen and (max-width: 1350px) {
+            .grid-layout { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .dashboard-container { max-width: 100%; }
+            .grid-layout { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media screen and (max-width: 768px) {
+            body { padding: 1rem 1rem 2rem 1rem !important; }
+            .dashboard-container { padding: 0 !important; }
+            .logo-left, .logo-right {
+                height: 45px !important;
+                top: 1.5rem !important;
+            }
+            .logo-left { left: 1rem !important; }
+            .logo-right { right: 1rem !important; }
+            .hub-title { font-size: 2.2rem !important; }
+            .grid-layout { 
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1.5rem !important; 
+                padding: 0 0 2rem 0 !important; 
+            }
+            .card {
+                width: 100% !important;
+                padding: 2.5rem 1.5rem !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: center !important;
+                min-height: auto !important;
+            }
+            .card-title { font-size: 1.6rem !important; margin-bottom: 0.75rem !important; }
+            .card-desc { font-size: 1.15rem !important; line-height: 1.5 !important; }
+            .icon-wrapper {
+                width: 80px !important;
+                height: 80px !important;
+                font-size: 2.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .share-btn { 
+                top: 1.5rem !important; 
+                right: 1.5rem !important; 
+            }
+            .top-bar {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                transform: none !important;
+                margin: 5rem auto 1rem auto !important;
+                padding: 0.6rem 1.25rem !important;
+                flex-direction: row !important;
+                gap: 1rem !important;
+                font-size: 0.8rem !important;
+                max-width: 90% !important;
+                background: rgba(0, 33, 71, 0.5) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Corner Logos -->
+    <img src="AISA_logo.png" alt="AISA Logo" class="logo-left" onerror="this.style.display='none'">
+    <img src="ESOL_logo.png" alt="Esol Education Logo" class="logo-right" onerror="this.style.display='none'">
+
+    <!-- Live Date and Time Top Bar -->
+    <div class="top-bar">
+        <div id="live-date"></div>
+        <div id="live-time"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="school-name">American International School in Abu Dhabi</div>
+            <h1 class="hub-title">Leadership Hub</h1>
+        </header>
+
+        <!-- Main Grid -->
+        <main class="grid-layout">
+            
+            <!-- Card 1: T&L Hub (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Teaching & Learning Hub')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h2 class="card-title">T&L Hub</h2>
+                <p class="card-desc">Access to Teaching & Learning guidelines, pedagogy standards, and resources.</p>
+            </div>
+
+            <!-- Card 2: ADEK Policies (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'ADEK Policies')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <h2 class="card-title">ADEK Policies</h2>
+                <p class="card-desc">Official ADEK policies for school operations, compliance, and regulations.</p>
+            </div>
+
+            <!-- Card 3: MAP RIT Scores -->
+            <div class="card" onclick="navigateOrToast(event, 'https://www.giftedready.com/nwea-map/test-scores/', '')">
+                <button class="share-btn" onclick="copyToClipboard(event, 'https://www.giftedready.com/nwea-map/test-scores/')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h2 class="card-title">MAP RIT Scores</h2>
+                <p class="card-desc">Reference guide for expected NWEA MAP RIT scores by grade level.</p>
+            </div>
+
+            <!-- Card 4: Strategic Plan (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Strategic Plan')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-chess-knight"></i>
+                </div>
+                <h2 class="card-title">Strategic Plan</h2>
+                <p class="card-desc">AISA's strategic goals, vision, mission, and long-term objectives.</p>
+            </div>
+
+            <!-- Card 5: AI Integration Plan (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'AI Integration Plan')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <h2 class="card-title">AI Integration Plan</h2>
+                <p class="card-desc">Policy and framework for ethical AI usage and implementation at AISA.</p>
+            </div>
+
+            <!-- Card 6: Walkthrough Form (Active Link) -->
+            <div class="card" onclick="navigateOrToast(event, 'https://forms.gle/oPkcQM7FGje5pXKA6', '')">
+                <button class="share-btn" onclick="copyToClipboard(event, 'https://forms.gle/oPkcQM7FGje5pXKA6')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <h2 class="card-title">Walkthrough Form</h2>
+                <p class="card-desc">Official leadership form for classroom walkthroughs and rapid feedback.</p>
+            </div>
+
+            <!-- Card 7: UAE Inspection Framework -->
+            <div class="card" onclick="navigateOrToast(event, 'https://www.moe.gov.ae/ar/importantlinks/inspection/publishingimages/frameworkbooken.pdf', '')">
+                <button class="share-btn" onclick="copyToClipboard(event, 'https://www.moe.gov.ae/ar/importantlinks/inspection/publishingimages/frameworkbooken.pdf')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <h2 class="card-title">UAE Inspection Framework</h2>
+                <p class="card-desc">Official framework and quality standards for UAE school inspections.</p>
+            </div>
+
+            <!-- Card 8: School Improvement Plan (SIP) (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'School Improvement Plan')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+                <h2 class="card-title">School Improvement Plan</h2>
+                <p class="card-desc">Detailed action plans, targets, and goals for school development.</p>
+            </div>
+
+            <!-- Card 9: Leadership Drive (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Leadership Drive')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-brands fa-google-drive"></i>
+                </div>
+                <h2 class="card-title">Leadership Drive</h2>
+                <p class="card-desc">Access to the shared Google Drive folder containing SLT documents.</p>
+            </div>
+
+            <!-- Card 10: Curriculum Docs (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Curriculum Documents')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h2 class="card-title">Curriculum Docs</h2>
+                <p class="card-desc">Centralized access to IB and US Diploma curriculum standards.</p>
+            </div>
+
+            <!-- Card 11: Teacher Efficiency Tools (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Efficiency Tools')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h2 class="card-title">Efficiency Tools</h2>
+                <p class="card-desc">AI assistants and templates designed to streamline teacher workflows.</p>
+            </div>
+
+            <!-- Card 12: Request a Resource (Placeholder) -->
+            <div class="card coming-soon" onclick="navigateOrToast(event, '#', 'Resource Request')">
+                <button class="share-btn" onclick="copyToClipboard(event, '#')" aria-label="Share Link">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </button>
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-folder-plus"></i>
+                </div>
+                <h2 class="card-title">Request a Resource</h2>
+                <p class="card-desc">Submit requests for new documents, data, or links to be added to the Hub.</p>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Custom Toast Notification UI -->
+    <div id="toast" class="toast-container">
+        <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+        <span id="toast-message">Link copied!</span>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        let toastTimeout;
+
+        /**
+         * Navigates to a link or shows a "coming soon" toast if it's a placeholder.
+         */
+        function navigateOrToast(event, url, moduleName) {
+            // Check if it's a placeholder
+            if (url === '#' || url.trim() === '') {
+                event.preventDefault(); // Stop navigation
+                showToast(`The ${moduleName} module is coming soon!`, 'info');
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+
+        /**
+         * Copies a specific URL to the clipboard and triggers the toast notification.
+         */
+        function copyToClipboard(event, textToCopy) {
+            // Prevent the click event from bubbling up to the card's onclick handler
+            event.stopPropagation();
+            
+            if (textToCopy === '#' || textToCopy.trim() === '') {
+                showToast("Link not available yet.", 'info');
+                return;
+            }
+            
+            // Create a temporary textarea element to hold the text
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = textToCopy;
+            
+            // Move it off-screen to prevent scrolling/visual jump
+            tempTextArea.style.position = "absolute";
+            tempTextArea.style.left = "-9999px";
+            
+            document.body.appendChild(tempTextArea);
+            
+            // Select and copy
+            tempTextArea.select();
+            document.execCommand("copy");
+            
+            // Cleanup
+            document.body.removeChild(tempTextArea);
+
+            // Show Notification
+            showToast("Link copied to clipboard!", 'success');
+        }
+
+        /**
+         * Displays the animated toast notification.
+         */
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById("toast");
+            const toastMessage = document.getElementById("toast-message");
+            const toastIcon = document.getElementById("toast-icon");
+            
+            // Change icon based on type
+            if (type === 'info') {
+                toastIcon.className = "fa-solid fa-circle-info";
+            } else {
+                toastIcon.className = "fa-solid fa-circle-check";
+            }
+
+            toastMessage.textContent = message;
+            toast.classList.add("show");
+
+            // Clear existing timeout if user clicks multiple times rapidly
+            clearTimeout(toastTimeout);
+
+            // Hide after 3 seconds
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
+        /**
+         * Live Date and Time Updates
+         */
+        function updateDateTime() {
+            const now = new Date();
+            
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            
+            document.getElementById('live-date').textContent = now.toLocaleDateString('en-US', dateOptions);
+            document.getElementById('live-time').textContent = now.toLocaleTimeString('en-US', timeOptions);
+        }
+
+        // Initialize clock and update every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
